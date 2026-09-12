@@ -8,7 +8,7 @@ const App = () => {
 
   const [user, setUser] = useState(null)
   const [loggedInUserData, setLoggedInUserData] = useState(null)
-  const [userData,SetUserData] = useContext(AuthContext)
+  const [userData] = useContext(AuthContext)
 
   useEffect(()=>{
     const loggedInUser = localStorage.getItem('loggedInUser')
@@ -32,9 +32,10 @@ const App = () => {
         setUser('employee')
         setLoggedInUserData(employee)
         localStorage.setItem('loggedInUser', JSON.stringify({ role: 'employee',data:employee }))
+      } else {
+        alert("Invalid Credentials")
       }
-    }
-    else {
+    } else {
       alert("Invalid Credentials")
     }
   }
