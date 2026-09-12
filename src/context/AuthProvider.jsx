@@ -7,18 +7,20 @@ const AuthProvider = ({ children }) => {
     // localStorage.clear()
 
     const [userData, setUserData] = useState(null)
+    const [activityLogs, setActivityLogs] = useState([])
 
     useEffect(() => {
         setLocalStorage()
-        const {employees} = getLocalStorage()
+        const {employees, activityLogs} = getLocalStorage()
         setUserData(employees)
+        setActivityLogs(activityLogs)
     }, [])
     
     
 
     return (
         <div>
-            <AuthContext.Provider value={[userData,setUserData]}>
+            <AuthContext.Provider value={[userData, setUserData, activityLogs, setActivityLogs]}>
                 {children}
             </AuthContext.Provider>
         </div>

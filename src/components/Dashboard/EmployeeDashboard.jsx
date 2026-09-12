@@ -5,7 +5,7 @@ import TaskList from '../TaskList/TaskList'
 import { AuthContext } from '../../context/AuthProvider'
 
 const EmployeeDashboard = (props) => {
-  const [userData, setUserData] = useContext(AuthContext)
+  const [userData, setUserData, activityLogs, setActivityLogs] = useContext(AuthContext)
 
   const updateTaskStatus = (taskTitle, newStatus) => {
     const updatedData = userData.map((employee) => {
@@ -38,6 +38,17 @@ const EmployeeDashboard = (props) => {
 
     setUserData(updatedData);
     localStorage.setItem('employees', JSON.stringify(updatedData));
+
+    // Log activity
+    const actionMap = {
+        'active': 'accepted',
+        'completed': 'completed',
+        'failed': 'failed on'
+    }
+    const log = `${new Date().toLocaleTimeString()} - ${props.data.firstName} ${actionMap[newStatus]} the task "${taskTitle}"`
+    const updatedLogs = [log, ...activityLogs].slice(0, 50)
+    setActivityLogs(updatedLogs)
+    localStorage.setItem('activityLogs', JSON.stringify(updatedLogs))
   };
 
   return (

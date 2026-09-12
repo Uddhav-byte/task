@@ -209,6 +209,8 @@ const admin = [{
     "password": "123"
 }];
 
+const initialLogs = [];
+
 export const setLocalStorage = ()=>{
     if (!localStorage.getItem('employees')) {
         localStorage.setItem('employees',JSON.stringify(employees))
@@ -216,10 +218,14 @@ export const setLocalStorage = ()=>{
     if (!localStorage.getItem('admin')) {
         localStorage.setItem('admin',JSON.stringify(admin))
     }
+    if (!localStorage.getItem('activityLogs')) {
+        localStorage.setItem('activityLogs', JSON.stringify(initialLogs))
+    }
 }
 export const getLocalStorage = ()=>{
     const employees = JSON.parse(localStorage.getItem('employees'))
     const admin = JSON.parse(localStorage.getItem('admin'))
+    const activityLogs = JSON.parse(localStorage.getItem('activityLogs')) || []
 
-    return {employees,admin}
+    return {employees, admin, activityLogs}
 }

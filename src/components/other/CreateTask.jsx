@@ -3,7 +3,7 @@ import { AuthContext } from '../../context/AuthProvider'
 
 const CreateTask = () => {
 
-    const [userData, setUserData] = useContext(AuthContext)
+    const [userData, setUserData, activityLogs, setActivityLogs] = useContext(AuthContext)
 
     const [taskTitle, setTaskTitle] = useState('')
     const [taskDescription, setTaskDescription] = useState('')
@@ -17,16 +17,29 @@ const CreateTask = () => {
         const task = { taskTitle, taskDescription, taskDate, category, active: false, newTask: true, failed: false, completed: false }
 
         const data = [...userData]
+        let employeeFound = false;
 
         data.forEach(function (elem) {
-            if (asignTo == elem.firstName) {
+            if (asignTo === elem.firstName) {
                 elem.tasks.push(task)
                 elem.taskCounts.newTask = elem.taskCounts.newTask + 1
+                employeeFound = true;
             }
         })
+        
+        if (!employeeFound) {
+            alert("Employee not found!");
+            return;
+        }
+
         setUserData(data)
         localStorage.setItem('employees', JSON.stringify(data))
-        console.log(data);
+
+        // Log activity
+        const log = `${new Date().toLocaleTimeString()} - Admin assigned task "${taskTitle}" to ${asignTo}`
+        const updatedLogs = [log, ...activityLogs].slice(0, 50)
+        setActivityLogs(updatedLogs)
+        localStorage.setItem('activityLogs', JSON.stringify(updatedLogs))
 
         setTaskTitle('')
         setCategory('')
