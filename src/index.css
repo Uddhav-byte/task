@@ -1,18 +1,35 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-*{
+* {
+  font-family: 'Outfit', sans-serif;
   color: #fff;
+  transition: all 0.3s ease-in-out;
 }
-body{
+
+body {
   background-color: #111;
+  background-image: radial-gradient(circle at top right, #1f2937, #111);
+  min-height: 100vh;
 }
-#tasklist::-webkit-scrollbar{
-    background-color: transparent;
-    height: 5px;
+
+#tasklist::-webkit-scrollbar {
+  background-color: transparent;
+  height: 5px;
 }
-#tasklist::-webkit-scrollbar-thumb{
-  background-color: rgb(143, 143, 143);
+#tasklist::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.2);
   border-radius: 50px;
+}
+#tasklist::-webkit-scrollbar-thumb:hover {
+  background-color: rgba(255, 255, 255, 0.4);
+}
+
+@layer utilities {
+  .glass {
+    @apply bg-opacity-20 backdrop-filter backdrop-blur-lg border border-opacity-20 border-white shadow-lg;
+  }
 }
