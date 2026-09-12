@@ -16,7 +16,7 @@ const CreateTask = () => {
 
         const task = { taskTitle, taskDescription, taskDate, category, active: false, newTask: true, failed: false, completed: false }
 
-        const data = userData
+        const data = [...userData]
 
         data.forEach(function (elem) {
             if (asignTo == elem.firstName) {
@@ -25,6 +25,7 @@ const CreateTask = () => {
             }
         })
         setUserData(data)
+        localStorage.setItem('employees', JSON.stringify(data))
         console.log(data);
 
         setTaskTitle('')
